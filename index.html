@@ -37,7 +37,6 @@
             min-height: 100vh;
         }
 
-        /* Entrance Animation */
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
@@ -55,7 +54,6 @@
             animation: fadeUp 1s ease-out;
         }
 
-        /* Modern Header */
         .main-header {
             background: linear-gradient(135deg, var(--rail-blue) 0%, var(--rail-blue-dark) 100%);
             color: white;
@@ -66,7 +64,6 @@
             overflow: hidden;
         }
 
-        /* Subtle glowing light effect in header */
         .main-header::before {
             content: '';
             position: absolute;
@@ -107,7 +104,6 @@
             z-index: 2;
         }
 
-        /* Welcome Text Animation */
         .welcome-container {
             width: 100%;
             overflow: hidden;
@@ -135,7 +131,6 @@
             100% { transform: translateX(-100%); }
         }
 
-        /* Responsive Grid for Description */
         .content-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -201,7 +196,6 @@
 
         .adv-list li strong { color: var(--rail-blue-dark); font-size: 1.05rem;}
 
-        /* Disclaimer Box */
         .disclaimer-box {
             background: linear-gradient(to right, #FEF2F2, #fff);
             border: 1px solid #FECACA;
@@ -216,7 +210,6 @@
         .disclaimer-box p { font-size: 0.9rem; color: #64748b; line-height: 1.6; margin-bottom: 10px;}
         .disclaimer-box p:last-child { margin-bottom: 0; }
 
-        /* Lobby Accordion Design & Header with Buttons */
         .lobby-container { padding: 10px 40px 50px; }
         
         .section-header-container {
@@ -236,7 +229,7 @@
             align-items: center;
             gap: 10px;
             border-radius: 8px 30px 30px 8px;
-            margin: 0; /* Margin handled by container */
+            margin: 0;
             font-weight: 800;
             font-size: 1.2rem;
             letter-spacing: 1px;
@@ -264,6 +257,7 @@
             align-items: center;
             gap: 8px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            cursor: pointer;
         }
 
         .header-btn i {
@@ -308,7 +302,6 @@
 
         .accordion-title i { color: var(--rail-gold); font-size: 1.3rem; }
 
-        /* Plus and Minus Icons */
         .accordion::after {
             content: '\f067';
             font-family: 'Font Awesome 6 Free';
@@ -347,7 +340,6 @@
 
         .panel.show { transition: max-height 0.8s ease-in-out, padding 0.3s ease; }
 
-        /* Modern Video Buttons */
         .vid-link {
             text-decoration: none;
             background: #ffffff;
@@ -440,7 +432,6 @@
         footer strong { color: var(--rail-gold); font-weight: 700; letter-spacing: 1px;}
         footer p { margin-top: 5px; font-size: 0.85rem; opacity: 0.7;}
 
-        /* Mobile Adjustments */
         @media (max-width: 768px) {
             .wrapper { border-radius: 16px; }
             .lobby-container { padding: 10px 20px 30px; }
@@ -510,6 +501,7 @@
             <div class="header-action-buttons">
                 <a href="https://drive.google.com/file/d/1xeHdUip-Yr9zrTUAnM2ge_R58JcYx8WL/view?usp=sharing" target="_blank" class="header-btn"><i class="fa-solid fa-map"></i> STATION LAYOUT</a>
                 <a href="https://drive.google.com/file/d/1re6XroGs6m7rEk8IQl9RcVEwkV-jdbve/view?usp=sharing" target="_blank" class="header-btn"><i class="fa-solid fa-chart-line"></i> SECTIONAL GRADIENT CHART</a>
+                <div onclick="alert('WORK ON PROGRESS')" class="header-btn"><i class="fa-solid fa-triangle-exclamation"></i> CAUTION ORDER</div>
             </div>
         </div>
         
@@ -671,12 +663,8 @@
 
     for (i = 0; i < acc.length; i++) {
         acc[i].addEventListener("click", function() {
-            // Toggle active class
             this.classList.toggle("active");
-            
             var panel = this.nextElementSibling;
-            
-            // Smoother height calculation and padding transition
             if (panel.style.maxHeight) {
                 panel.style.maxHeight = null;
                 panel.style.paddingTop = "0px";
@@ -684,7 +672,7 @@
                 panel.classList.remove("show");
             } else {
                 panel.classList.add("show");
-                panel.style.maxHeight = panel.scrollHeight + 60 + "px"; // added slight buffer
+                panel.style.maxHeight = panel.scrollHeight + 60 + "px";
                 panel.style.paddingTop = "20px";
                 panel.style.paddingBottom = "25px";
             }
