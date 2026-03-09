@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SECR Bilaspur - E-Learning Simulation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --rail-blue: #002D62;
+            --rail-blue-dark: #00122b;
+            --rail-gold: #FFC000;
+            --rail-gold-glow: rgba(255, 192, 0, 0.4);
+            --rail-red: #C62828;
+            --glass-bg: rgba(255, 255, 255, 0.92);
+            --text-main: #2c3e50;
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #e0e0e0;
+            background-image: linear-gradient(rgba(0, 18, 43, 0.88), rgba(0, 45, 98, 0.88)), 
+                              url('https://images.unsplash.com/photo-1515165515965-f48104053670?q=80&w=2000');
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+            padding: 30px 15px;
+            color: var(--text-main);
+            min-height: 100vh;
+        }
+
+        /* Entrance Animation */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--glass-bg);
+            border-radius: 24px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(20px);
+            animation: fadeUp 1s ease-out;
+        }
+
+        /* Modern Header */
+        .main-header {
+            background: linear-gradient(135deg, var(--rail-blue) 0%, var(--rail-blue-dark) 100%);
+            color: white;
+            text-align: center;
+            padding: 50px 20px 40px;
+            position: relative;
+            border-bottom: 6px solid var(--rail-gold);
+            overflow: hidden;
+        }
+
+        /* Subtle glowing light effect in header */
+        .main-header::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            animation: pulse 6s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 0.5; }
+        }
+
+        .main-header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+            margin: 0;
+            letter-spacing: 2px;
+            text-shadow: 0px 4px 15px rgba(0,0,0,0.5);
+            line-height: 1.2;
+            position: relative;
+            z-index: 2;
+        }
+
+        .main-header h1 i {
+            color: var(--rail-gold);
+            margin-right: 15px;
+        }
+
+        .main-header p.sub-title {
+            font-size: clamp(1rem, 3vw, 1.4rem);
+            color: #e2e8f0;
+            margin-top: 15px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Welcome Text Animation */
+        .welcome-container {
+            width: 100%;
+            overflow: hidden;
+            margin-top: 20px;
+            position: relative;
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 8px 0;
+            border-radius: 50px;
+        }
+
+        .welcome-text {
+            display: inline-block;
+            white-space: nowrap;
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: var(--rail-gold);
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-shadow: 0 0 10px rgba(255, 192, 0, 0.6);
+            animation: scrollText 12s linear infinite;
+        }
+
+        @keyframes scrollText {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Responsive Grid for Description */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            padding: 40px;
+            background: linear-gradient(to bottom, rgba(245, 247, 250, 0.9), rgba(255, 255, 255, 1));
+        }
+
+        .info-card {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border-top: 5px solid var(--rail-blue);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,45,98,0.15);
+        }
+
+        .info-card h3 {
+            color: var(--rail-blue-dark);
+            margin-top: 0;
+            font-weight: 800;
+            text-transform: uppercase;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-card h3 i {
+            color: var(--rail-red);
+        }
+
+        .adv-list { list-style: none; }
+
+        .adv-list li {
+            margin-bottom: 18px;
+            padding-left: 40px;
+            position: relative;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #475569;
+        }
+
+        .adv-list li::before {
+            content: '\f058';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: #10b981;
+            font-size: 1.2rem;
+        }
+
+        .adv-list li strong { color: var(--rail-blue-dark); font-size: 1.05rem;}
+
+        /* Disclaimer Box */
+        .disclaimer-box {
+            background: linear-gradient(to right, #FEF2F2, #fff);
+            border: 1px solid #FECACA;
+            border-left: 6px solid var(--rail-red);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(198, 40, 40, 0.05);
+        }
+
+        .disclaimer-box h4 { color: var(--rail-red); margin-bottom: 10px; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;}
+        .disclaimer-box p { font-size: 0.9rem; color: #64748b; line-height: 1.6; margin-bottom: 10px;}
+        .disclaimer-box p:last-child { margin-bottom: 0; }
+
+        /* Lobby Accordion Design */
+        .lobby-container { padding: 10px 40px 50px; }
+        
+        .line-tag {
+            background: linear-gradient(135deg, var(--rail-red) 0%, #b91c1c 100%);
+            color: white;
+            padding: 12px 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border-radius: 8px 30px 30px 8px;
+            margin: 40px 0 25px 0;
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 20px rgba(198, 40, 40, 0.3);
+            text-transform: uppercase;
+        }
+
+        .accordion {
+            background-color: #ffffff;
+            color: var(--rail-blue-dark);
+            cursor: pointer;
+            padding: 22px 30px;
+            width: 100%;
+            border: 1px solid #e2e8f0;
+            text-align: left;
+            outline: none;
+            font-size: 1.15rem;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 16px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        .accordion-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .accordion-title i { color: var(--rail-gold); font-size: 1.3rem; }
+
+        /* Plus and Minus Icons */
+        .accordion::after {
+            content: '\f067';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 1.2rem;
+            color: #94a3b8;
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .active, .accordion:hover {
+            background-color: var(--rail-blue);
+            color: white;
+            border-color: var(--rail-blue);
+            transform: scale(1.01);
+            box-shadow: 0 10px 25px rgba(0, 45, 98, 0.2);
+        }
+
+        .active .accordion-title i { color: white; }
+
+        .active::after {
+            content: '\f068';
+            color: var(--rail-gold);
+            transform: rotate(180deg);
+        }
+
+        .panel {
+            padding: 0 20px;
+            background-color: transparent;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0, 1, 0, 1), padding 0.5s ease;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 15px;
+        }
+
+        .panel.show { transition: max-height 0.8s ease-in-out, padding 0.3s ease; }
+
+        /* Modern Video Buttons */
+        .vid-link {
+            text-decoration: none;
+            background: #ffffff;
+            color: var(--text-main);
+            border: 1px solid #e2e8f0;
+            padding: 16px 20px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .vid-link::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.5s ease;
+        }
+
+        .vid-link:hover::before { left: 100%; }
+
+        .vid-link:hover {
+            background: var(--rail-blue);
+            color: #ffffff;
+            border-color: var(--rail-blue);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px rgba(0, 45, 98, 0.25);
+        }
+
+        .vid-link span {
+            background: var(--rail-gold);
+            color: var(--rail-blue-dark);
+            min-width: 36px; 
+            height: 36px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            box-shadow: 0 4px 10px var(--rail-gold-glow);
+            transition: var(--transition);
+        }
+
+        .vid-link i.play-icon {
+            margin-left: auto;
+            color: #cbd5e1;
+            transition: var(--transition);
+        }
+
+        .vid-link:hover span {
+            background: #ffffff;
+            color: var(--rail-blue);
+            transform: scale(1.1);
+        }
+
+        .vid-link:hover i.play-icon {
+            color: var(--rail-gold);
+            transform: scale(1.2);
+        }
+
+        .coming-soon { 
+            background: #f8fafc;
+            color: #94a3b8;
+            border: 1px dashed #cbd5e1;
+            pointer-events: none;
+        }
+        
+        .coming-soon span { background: #e2e8f0; color: #94a3b8; box-shadow: none;}
+        .coming-soon i.play-icon { color: #e2e8f0; }
+
+        footer {
+            background: var(--rail-blue-dark);
+            color: #94a3b8;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            border-top: 4px solid var(--rail-gold);
+        }
+
+        footer strong { color: var(--rail-gold); font-weight: 700; letter-spacing: 1px;}
+        footer p { margin-top: 5px; font-size: 0.85rem; opacity: 0.7;}
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .wrapper { border-radius: 16px; }
+            .lobby-container { padding: 10px 20px 30px; }
+            .content-grid { padding: 20px; gap: 20px; }
+            .accordion { padding: 18px 20px; font-size: 1.05rem; border-radius: 12px;}
+            .panel { grid-template-columns: 1fr; }
+            .vid-link { padding: 14px 16px; font-size: 0.95rem;}
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="main-header">
+        <h1><i class="fa-solid fa-train-subway"></i> SECTIONAL VIDEO SIMULATION</h1>
+        <p class="sub-title">SOUTH EAST CENTRAL RAILWAY | BILASPUR DIVISION</p>
+        <div class="welcome-container">
+            <div class="welcome-text">विद्युत परिचालन विभाग बिलासपुर आपका हार्दिक अभिनन्दन करती है..</div>
+        </div>
+    </div>
+
+    <div class="content-grid">
+        <div class="info-card">
+            <h3><i class="fa-solid fa-circle-info"></i> विवरण / Description</h3>
+            <p><strong>हिंदी:</strong> यह ई-लर्निंग पोर्टल विभिन्न रेलवे सेक्शनों का फ्रंट-डेस्क व्यू सिमुलेशन प्रदान करता है। लोकोमोटिव पर लगे कैमरों के माध्यम से रिकॉर्ड किए गए ये वीडियो ट्रैक का वास्तविक अनुभव प्रदान करते हैं।</p>
+            <br>
+            <p><strong>English:</strong> This e-learning portal provides a front-desk view simulation of various railway sections. Recorded with high-precision cameras mounted on locomotives, these videos offer a 1:1 real-world perspective of the tracks.</p>
+            
+            <div class="disclaimer-box">
+                <h4><i class="fa-solid fa-triangle-exclamation"></i> अस्वीकरण / DISCLAIMER</h4>
+                <p><strong>हिंदी:</strong> ये वीडियो केवल शैक्षिक/प्रशिक्षण उद्देश्यों के लिए हैं। ये वास्तविक रोड लर्निंग (LR) या भौतिक सेक्शन निगरानी का विकल्प नहीं हैं। हमेशा नवीनतम वर्किंग टाइम टेबल (WTT) और सावधानी आदेशों का पालन करें।</p>
+                <p><strong>EN:</strong> These videos are for educational/training purposes only. They do not replace actual Road Learning (LR) or physical section monitoring. Always refer to the latest Working Time Table (WTT) and Caution Orders.</p>
+            </div>
+        </div>
+        
+        <div class="info-card">
+            <h3><i class="fa-solid fa-star"></i> प्रमुख विशेषताएं / Key Features</h3>
+            <ul class="adv-list">
+                <li><strong>सिग्नल स्थानों की वास्तविक समय में समझ।</strong> <br> <em>Visual Familiarity: Real-time understanding of Signal locations.</em></li>
+                <li><strong>चढ़ाई और ढलान वाले सेक्शनों की पूर्व पहचान।</strong> <br> <em>Gradient Mastery: Pre-identification of steep rising/falling gradients.</em></li>
+                <li><strong>स्थायी कॉशन जोन की सटीक जानकारी।</strong> <br> <em>Caution Order Precision: Better spatial awareness of permanent caution zones.</em></li>
+                <li><strong>SPAD के खतरे को कम करने में सहायक।</strong> <br> <em>Safety Enhancement: Reduces the risk of Signal Passing At Danger (SPAD).</em></li>
+                <li><strong>नए क्रू सदस्यों के लिए तेजी से रूट लर्निंग में सहायक।</strong> <br> <em>Route Learning: Helps in faster route learning for new crew members.</em></li>
+                <li><strong>मामूली रूट संशोधनों के लिए फिजिकल ट्रिप्स पर निर्भरता कम करता है।</strong> <br> <em>Operational Efficiency: Reduces the dependency on physical trips for minor route revisions.</em></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="lobby-container">
+        
+        <div class="line-tag"><i class="fa-solid fa-route"></i> CIC LINE LOBBIES</div>
+        
+        <div class="lobby-group">
+            <button class="accordion">
+                <span class="accordion-title"><i class="fa-solid fa-location-dot"></i> SDL (Shahdol)</span>
+            </button>
+            <div class="panel">
+                <a href="https://drive.google.com/file/d/1NqgEKln9gfwMzqrv1BdMLloWBkDFWoNZ/view?usp=sharing" target="_blank" class="vid-link"><span>01</span> BSP-PND <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1F5cu78GmtVG1NcoDrgbpzlOP-mZdzxml/view?usp=sharing" target="_blank" class="vid-link"><span>02</span> PND-APR <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/12OAFd_4lOFCGuLcA7UXv2fKG-QvddNNU/view?usp=sharing" target="_blank" class="vid-link"><span>03</span> APR-SDL <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1OahtgMceubyxIDHKunk0XCVYhTDabsAF/view?usp=sharing" target="_blank" class="vid-link"><span>04</span> SDL-KKI <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1tQklbTQIPSN1kAXGEkjKUXoEqaYyLBt9/view?usp=sharing" target="_blank" class="vid-link"><span>05</span> KKI-JLW <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1BBXFkSXIn8uLj-XuBM3Qxs2GVrTU7VKk/view?usp=sharing" target="_blank" class="vid-link"><span>06</span> APR-DTL <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1K2jynPEsnpOwg2XJ9u9oVJUn1TJy8-_f/view?usp=sharing" target="_blank" class="vid-link"><span>07</span> DTL-ABKP <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/14Bf1xK4RAudTfmZ8fUjOhn-WbBbNHBRB/view?usp=sharing" target="_blank" class="vid-link"><span>08</span> ABKP-DTL <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1DzJczJu_RBQTDLUzvAD4WRRmiaXBhtmp/view?usp=sharing" target="_blank" class="vid-link"><span>09</span> DTL-APR <i class="fa-solid fa-play play-icon"></i></a>
+            </div>
+
+            <button class="accordion">
+                <span class="accordion-title"><i class="fa-solid fa-location-dot"></i> SJQ (Surajpur Road)</span>
+            </button>
+            <div class="panel">
+                <a href="https://drive.google.com/file/d/1F5cu78GmtVG1NcoDrgbpzlOP-mZdzxml/view?usp=sharing" target="_blank" class="vid-link"><span>01</span> PND-APR <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/12OAFd_4lOFCGuLcA7UXv2fKG-QvddNNU/view?usp=sharing" target="_blank" class="vid-link"><span>02</span> APR-SDL <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1BBXFkSXIn8uLj-XuBM3Qxs2GVrTU7VKk/view?usp=sharing" target="_blank" class="vid-link"><span>03</span> APR-DTL <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1K2jynPEsnpOwg2XJ9u9oVJUn1TJy8-_f/view?usp=sharing" target="_blank" class="vid-link"><span>04</span> DTL-ABKP <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/14Bf1xK4RAudTfmZ8fUjOhn-WbBbNHBRB/view?usp=sharing" target="_blank" class="vid-link"><span>05</span> ABKP-DTL <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1DzJczJu_RBQTDLUzvAD4WRRmiaXBhtmp/view?usp=sharing" target="_blank" class="vid-link"><span>06</span> DTL-APR <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1dg2gJqVWSOgtONAXsOwWVeY0ddnXnbcO/view?usp=sharing" target="_blank" class="vid-link"><span>07</span> BRND-CHRM <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1FzS3gUWLYQnKQYkHxNO6rtNPKS3N8PuG/view?usp=sharing" target="_blank" class="vid-link"><span>08</span> CHRM-BRND <i class="fa-solid fa-play play-icon"></i></a>
+            </div>
+
+            <button class="accordion">
+                <span class="accordion-title"><i class="fa-solid fa-location-dot"></i> BJRI (Bijuri)</span>
+            </button>
+            <div class="panel">
+                <a href="https://drive.google.com/file/d/1F5cu78GmtVG1NcoDrgbpzlOP-mZdzxml/view?usp=sharing" target="_blank" class="vid-link"><span>01</span> PND-APR <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/12OAFd_4lOFCGuLcA7UXv2fKG-QvddNNU/view?usp=sharing" target="_blank" class="vid-link"><span>02</span> APR-SDL <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1BBXFkSXIn8uLj-XuBM3Qxs2GVrTU7VKk/view?usp=sharing" target="_blank" class="vid-link"><span>03</span> APR-DTL <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1K2jynPEsnpOwg2XJ9u9oVJUn1TJy8-_f/view?usp=sharing" target="_blank" class="vid-link"><span>04</span> DTL-ABKP <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/14Bf1xK4RAudTfmZ8fUjOhn-WbBbNHBRB/view?usp=sharing" target="_blank" class="vid-link"><span>05</span> ABKP-DTL <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1DzJczJu_RBQTDLUzvAD4WRRmiaXBhtmp/view?usp=sharing" target="_blank" class="vid-link"><span>06</span> DTL-APR <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1dg2gJqVWSOgtONAXsOwWVeY0ddnXnbcO/view?usp=sharing" target="_blank" class="vid-link"><span>07</span> BRND-CHRM <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1FzS3gUWLYQnKQYkHxNO6rtNPKS3N8PuG/view?usp=sharing" target="_blank" class="vid-link"><span>08</span> CHRM-BRND <i class="fa-solid fa-play play-icon"></i></a>
+            </div>
+
+            <button class="accordion">
+                <span class="accordion-title"><i class="fa-solid fa-location-dot"></i> PND (Pendra Road)</span>
+            </button>
+            <div class="panel">
+                <a href="https://drive.google.com/file/d/1NqgEKln9gfwMzqrv1BdMLloWBkDFWoNZ/view?usp=sharing" target="_blank" class="vid-link"><span>01</span> BSP-PND <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1F5cu78GmtVG1NcoDrgbpzlOP-mZdzxml/view?usp=sharing" target="_blank" class="vid-link"><span>02</span> PND-APR <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/12OAFd_4lOFCGuLcA7UXv2fKG-QvddNNU/view?usp=sharing" target="_blank" class="vid-link"><span>03</span> APR-SDL <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1BBXFkSXIn8uLj-XuBM3Qxs2GVrTU7VKk/view?usp=sharing" target="_blank" class="vid-link"><span>04</span> APR-DTL <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1K2jynPEsnpOwg2XJ9u9oVJUn1TJy8-_f/view?usp=sharing" target="_blank" class="vid-link"><span>05</span> DTL-ABKP <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/14Bf1xK4RAudTfmZ8fUjOhn-WbBbNHBRB/view?usp=sharing" target="_blank" class="vid-link"><span>06</span> ABKP-DTL <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1DzJczJu_RBQTDLUzvAD4WRRmiaXBhtmp/view?usp=sharing" target="_blank" class="vid-link"><span>07</span> DTL-APR <i class="fa-solid fa-play play-icon"></i></a>
+            </div>
+
+            <button class="accordion">
+                <span class="accordion-title"><i class="fa-solid fa-location-dot"></i> USL (Uslapur)</span>
+            </button>
+            <div class="panel">
+                 <a href="https://drive.google.com/file/d/1NqgEKln9gfwMzqrv1BdMLloWBkDFWoNZ/view?usp=sharing" target="_blank" class="vid-link"><span>01</span> BSP-PND <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1F5cu78GmtVG1NcoDrgbpzlOP-mZdzxml/view?usp=sharing" target="_blank" class="vid-link"><span>02</span> PND-APR <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/12OAFd_4lOFCGuLcA7UXv2fKG-QvddNNU/view?usp=sharing" target="_blank" class="vid-link"><span>03</span> APR-SDL <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1OahtgMceubyxIDHKunk0XCVYhTDabsAF/view?usp=sharing" target="_blank" class="vid-link"><span>04</span> SDL-KKI <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1tQklbTQIPSN1kAXGEkjKUXoEqaYyLBt9/view?usp=sharing" target="_blank" class="vid-link"><span>05</span> KKI-JLW <i class="fa-solid fa-play play-icon"></i></a>
+            </div>
+        </div>
+
+        <div class="line-tag"><i class="fa-solid fa-route"></i> MAIN LINE LOBBIES</div>
+
+        <div class="lobby-group">
+            <button class="accordion">
+                <span class="accordion-title"><i class="fa-solid fa-location-dot"></i> AKT (Akaltara)</span>
+            </button>
+            <div class="panel">
+                <a href="https://drive.google.com/file/d/1aBy1OKBWrZi7m8MCx-86FAJS2Y0eTVvI/view?usp=sharing" target="_blank" class="vid-link"><span>01</span> RIG-KHS <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="#" class="vid-link coming-soon"><span>02</span> KHS-CPH <i class="fa-solid fa-lock play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1tRMtW8cQOegDAVzkzqsTQx0Wfecy4pAJ/view?usp=sharing" target="_blank" class="vid-link"><span>03</span> CPH-BSP <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1bdKmWy-qKalfEGV5PpC0ytfVBbEaoknf/view?usp=sharing" target="_blank" class="vid-link"><span>04</span> BSP-CPH <i class="fa-solid fa-play play-icon"></i></a>
+            </div>
+            
+            <button class="accordion">
+                <span class="accordion-title"><i class="fa-solid fa-location-dot"></i> BRJN (Brajrajnagar)</span>
+            </button>
+            <div class="panel">
+                <a href="https://drive.google.com/file/d/1Z5F4-ibhbjiqlP2g2TKO3TRX2DEd1_qV/view?usp=sharing" target="_blank" class="vid-link"><span>01</span> RIG-JSG <i class="fa-solid fa-play play-icon"></i></a>
+            </div>
+
+            <button class="accordion">
+                <span class="accordion-title"><i class="fa-solid fa-location-dot"></i> BSP (Bilaspur)</span>
+            </button>
+            <div class="panel">
+                <a href="https://drive.google.com/file/d/1bdKmWy-qKalfEGV5PpC0ytfVBbEaoknf/view?usp=sharing" target="_blank" class="vid-link"><span>01</span> BSP-CPH <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1wLvE2Zlyin2ko4QmHi0oW0SOTJxRtNLA/view?usp=sharing" target="_blank" class="vid-link"><span>02</span> CPH-GAD <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1tRMtW8cQOegDAVzkzqsTQx0Wfecy4pAJ/view?usp=sharing" target="_blank" class="vid-link"><span>03</span> CPH-BSP <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1Z5F4-ibhbjiqlP2g2TKO3TRX2DEd1_qV/view?usp=sharing" target="_blank" class="vid-link"><span>04</span> RIG-JSG <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1aBy1OKBWrZi7m8MCx-86FAJS2Y0eTVvI/view?usp=sharing" target="_blank" class="vid-link"><span>05</span> RIG-KHS <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1NqgEKln9gfwMzqrv1BdMLloWBkDFWoNZ/view?usp=sharing" target="_blank" class="vid-link"><span>06</span> BSP-PND <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1F5cu78GmtVG1NcoDrgbpzlOP-mZdzxml/view?usp=sharing" target="_blank" class="vid-link"><span>07</span> PND-APR <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/12OAFd_4lOFCGuLcA7UXv2fKG-QvddNNU/view?usp=sharing" target="_blank" class="vid-link"><span>08</span> APR-SDL <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1OahtgMceubyxIDHKunk0XCVYhTDabsAF/view?usp=sharing" target="_blank" class="vid-link"><span>09</span> SDL-KKI <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1tQklbTQIPSN1kAXGEkjKUXoEqaYyLBt9/view?usp=sharing" target="_blank" class="vid-link"><span>10</span> KKI-JLW <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1BBXFkSXIn8uLj-XuBM3Qxs2GVrTU7VKk/view?usp=sharing" target="_blank" class="vid-link"><span>11</span> APR-DTL <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1K2jynPEsnpOwg2XJ9u9oVJUn1TJy8-_f/view?usp=sharing" target="_blank" class="vid-link"><span>12</span> DTL-ABKP <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/14Bf1xK4RAudTfmZ8fUjOhn-WbBbNHBRB/view?usp=sharing" target="_blank" class="vid-link"><span>13</span> ABKP-DTL <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1DzJczJu_RBQTDLUzvAD4WRRmiaXBhtmp/view?usp=sharing" target="_blank" class="vid-link"><span>14</span> DTL-APR <i class="fa-solid fa-play play-icon"></i></a>
+            </div>
+
+            <button class="accordion">
+                <span class="accordion-title"><i class="fa-solid fa-location-dot"></i> KHS (Kharsia)</span>
+            </button>
+            <div class="panel">
+                <a href="https://drive.google.com/file/d/1bdKmWy-qKalfEGV5PpC0ytfVBbEaoknf/view?usp=sharing" target="_blank" class="vid-link"><span>01</span> BSP-CPH <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1tRMtW8cQOegDAVzkzqsTQx0Wfecy4pAJ/view?usp=sharing" target="_blank" class="vid-link"><span>02</span> CPH-BSP <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1aBy1OKBWrZi7m8MCx-86FAJS2Y0eTVvI/view?usp=sharing" target="_blank" class="vid-link"><span>03</span> RIG-KHS <i class="fa-solid fa-play play-icon"></i></a>
+            </div>
+
+            <button class="accordion">
+                <span class="accordion-title"><i class="fa-solid fa-location-dot"></i> KRBA (Korba)</span>
+            </button>
+            <div class="panel">
+                <a href="https://drive.google.com/file/d/1bdKmWy-qKalfEGV5PpC0ytfVBbEaoknf/view?usp=sharing" target="_blank" class="vid-link"><span>01</span> BSP-CPH <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1wLvE2Zlyin2ko4QmHi0oW0SOTJxRtNLA/view?usp=sharing" target="_blank" class="vid-link"><span>02</span> CPH-GAD <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="#" class="vid-link coming-soon"><span>03</span> GAD-CPH <i class="fa-solid fa-lock play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1tRMtW8cQOegDAVzkzqsTQx0Wfecy4pAJ/view?usp=sharing" target="_blank" class="vid-link"><span>04</span> CPH-BSP <i class="fa-solid fa-play play-icon"></i></a>
+            </div>
+
+            <button class="accordion">
+                <span class="accordion-title"><i class="fa-solid fa-location-dot"></i> RIG (Raigarh)</span>
+            </button>
+            <div class="panel">
+                <a href="https://drive.google.com/file/d/1Z5F4-ibhbjiqlP2g2TKO3TRX2DEd1_qV/view?usp=sharing" target="_blank" class="vid-link"><span>01</span> RIG-JSG <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1aBy1OKBWrZi7m8MCx-86FAJS2Y0eTVvI/view?usp=sharing" target="_blank" class="vid-link"><span>02</span> RIG-KHS <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="#" class="vid-link coming-soon"><span>03</span> KHS-CPH <i class="fa-solid fa-lock play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1tRMtW8cQOegDAVzkzqsTQx0Wfecy4pAJ/view?usp=sharing" target="_blank" class="vid-link"><span>04</span> CPH-BSP <i class="fa-solid fa-play play-icon"></i></a>
+                <a href="https://drive.google.com/file/d/1bdKmWy-qKalfEGV5PpC0ytfVBbEaoknf/view?usp=sharing" target="_blank" class="vid-link"><span>05</span> BSP-CPH <i class="fa-solid fa-play play-icon"></i></a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        &copy; 2026 E-LR Simulation Project | South East Central Railway | <strong>Sr.DEE ELECT(OP)</strong> | Bilaspur Division
+        <p>Developed to enhance safe train operations.</p>
+    </footer>
+</div>
+
+<script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function() {
+            // Toggle active class
+            this.classList.toggle("active");
+            
+            var panel = this.nextElementSibling;
+            
+            // Smoother height calculation and padding transition
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+                panel.style.paddingTop = "0px";
+                panel.style.paddingBottom = "0px";
+                panel.classList.remove("show");
+            } else {
+                panel.classList.add("show");
+                panel.style.maxHeight = panel.scrollHeight + 60 + "px"; // added slight buffer
+                panel.style.paddingTop = "20px";
+                panel.style.paddingBottom = "25px";
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
